@@ -1,0 +1,127 @@
+<!-- test change -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WhyWhyWhys</title>
+  <meta name="description" content="Formal proof animations. Metamath, clarity, and beauty." />
+  <style>
+    :root{
+      --bg: #0b0c10;
+      --panel: rgba(255,255,255,.06);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.70);
+      --line: rgba(255,255,255,.14);
+      --accent: #8ad1ff;
+    }
+    *{ box-sizing:border-box }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(138,209,255,.12), transparent 60%),
+                  radial-gradient(1000px 500px at 80% 0%, rgba(255,120,120,.08), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+    }
+    .wrap{ max-width: 980px; margin: 0 auto; padding: 44px 22px 70px; }
+    .top{
+      display:flex; gap:18px; align-items:center; justify-content:space-between;
+      border: 1px solid var(--line); background: var(--panel);
+      border-radius: 16px; padding: 14px 16px;
+      backdrop-filter: blur(10px);
+    }
+    .brand{ display:flex; flex-direction:column; gap:2px; }
+    .brand b{ letter-spacing:.2px; font-size: 16px; }
+    .brand span{ color: var(--muted); font-size: 13px; }
+    .pill{
+      border:1px solid var(--line); border-radius: 999px;
+      padding: 8px 12px; color: var(--muted); font-size: 13px;
+    }
+    h1{ margin: 26px 0 10px; font-size: 46px; letter-spacing:-.8px; line-height:1.05; }
+    p.lead{ margin: 0 0 18px; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 62ch; }
+    .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; margin-top: 18px; }
+    @media (max-width: 860px){ .grid{ grid-template-columns:1fr; } h1{ font-size: 38px; } }
+    .card{
+      border:1px solid var(--line); border-radius: 16px; padding: 16px;
+      background: rgba(255,255,255,.04);
+    }
+    .card h3{ margin: 0 0 10px; font-size: 15px; color: rgba(255,255,255,.85); font-weight: 650; }
+    .card p{ margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
+    video{
+      width: 100%;
+      border-radius: 16px;
+      background:#000;
+      border:1px solid var(--line);
+      box-shadow: 0 10px 40px rgba(0,0,0,.55);
+      outline: none;
+    }
+    .links{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px; border-radius: 12px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      color: var(--text); text-decoration:none; font-size: 14px;
+    }
+    .btn:hover{ border-color: rgba(138,209,255,.35); }
+    .dot{ width:8px; height:8px; border-radius:999px; background: var(--accent); display:inline-block; }
+    footer{ margin-top: 28px; color: var(--muted); font-size: 13px; }
+    .small{ color: var(--muted); font-size: 12px; margin-top: 8px; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <b>finalwhy</b>
+        <span>Formal proof animations · Metamath and finalwhy</span>
+      </div>
+      <div class="pill">demo: A2I · ax-mp binding</div>
+    </div>
+
+    <h1>Proofs you can <span style="color:var(--accent)">see</span>.</h1>
+    <p class="lead">
+      A small experiment: take a formal Metamath proof and animate the meaning—step by step—so a human brain can follow it without losing rigor.
+    </p>
+
+    <video id="demo" controls playsinline preload="metadata">
+      <source src="assets/TheoremScene.mp4" type="video/mp4" />
+      Your browser doesn’t support MP4 video.
+    </video>
+    <div class="small">Tip: the final frame stays visible after playback ends.</div>
+
+    <div class="grid">
+      <div class="card">
+        <h3><span class="dot"></span> What you’re watching</h3>
+        <p>
+          A2I is an implication theorem. The animation shows ax-mp “binding” concrete lines of the proof into the schema
+          (φ, ψ, (φ→ψ), ⇒ψ), then collapsing the scaffolding until only the conclusion remains.
+        </p>
+      </div>
+      <div class="card">
+        <h3><span class="dot"></span> Why it matters</h3>
+        <p>
+          This is the first brick toward a book (and tool) where proofs aren’t just correct—they’re legible.
+        </p>
+        <div class="links">
+          <a class="btn" href="#" onclick="alert('Coming soon.'); return false;">Roadmap</a>
+          <a class="btn" href="#" onclick="alert('Coming soon.'); return false;">Contact</a>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="y"></span> finalwhy
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+    // Freeze on last frame (some players behave better with this)
+    const v = document.getElementById("demo");
+    v.addEventListener("ended", () => v.pause());
+  </script>
+</body>
+</html>

@@ -1,73 +1,226 @@
-<!-- test change -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WhyWhyWhys</title>
-  <meta name="description" content="Formal proof animations. Metamath, clarity, and beauty." />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Final Y</title>
+  <meta name="description" content="A narrative, visual path to the deepest foundations: formal proofs you can see and feel." />
+
   <style>
     :root{
-      --bg: #0b0c10;
-      --panel: rgba(255,255,255,.06);
+      --bg:#0b1020;
+      --cardA: rgba(255,255,255,.06);
+      --cardB: rgba(255,255,255,.03);
       --text: rgba(255,255,255,.92);
-      --muted: rgba(255,255,255,.70);
-      --line: rgba(255,255,255,.14);
-      --accent: #8ad1ff;
+      --muted: rgba(255,255,255,.72);
+      --faint: rgba(255,255,255,.56);
+
+      /* Accent palette */
+      --blue:#5aa7ff;     /* bright but not harsh */
+      --red:#ff5b6b;      /* warm, vivid red */
+      --shadow: 0 18px 50px rgba(0,0,0,.35);
+      --radius: 18px;
+      --max: 1080px;
     }
-    *{ box-sizing:border-box }
+
+    *{ box-sizing:border-box; }
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(138,209,255,.12), transparent 60%),
-                  radial-gradient(1000px 500px at 80% 0%, rgba(255,120,120,.08), transparent 55%),
-                  var(--bg);
       color: var(--text);
+      background:
+        radial-gradient(1100px 600px at 18% -10%, rgba(90,167,255,.22), transparent 60%),
+        radial-gradient(1000px 700px at 85% 0%, rgba(255,91,107,.12), transparent 55%),
+        radial-gradient(900px 650px at 50% 120%, rgba(90,167,255,.10), transparent 55%),
+        var(--bg);
+      min-height:100vh;
     }
-    .wrap{ max-width: 980px; margin: 0 auto; padding: 44px 22px 70px; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 44px 22px 54px;
+    }
+
     .top{
-      display:flex; gap:18px; align-items:center; justify-content:space-between;
-      border: 1px solid var(--line); background: var(--panel);
-      border-radius: 16px; padding: 14px 16px;
-      backdrop-filter: blur(10px);
+      display:flex;
+      justify-content:space-between;
+      gap: 16px;
+      align-items:flex-start;
+      margin-bottom: 18px;
     }
-    .brand{ display:flex; flex-direction:column; gap:2px; }
-    .brand b{ letter-spacing:.2px; font-size: 16px; }
-    .brand span{ color: var(--muted); font-size: 13px; }
-    .pill{
-      border:1px solid var(--line); border-radius: 999px;
-      padding: 8px 12px; color: var(--muted); font-size: 13px;
+
+    .brand{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      min-width: 0;
     }
-    h1{ margin: 26px 0 10px; font-size: 46px; letter-spacing:-.8px; line-height:1.05; }
-    p.lead{ margin: 0 0 18px; color: var(--muted); font-size: 18px; line-height: 1.55; max-width: 62ch; }
-    .grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; margin-top: 18px; }
-    @media (max-width: 860px){ .grid{ grid-template-columns:1fr; } h1{ font-size: 38px; } }
+
+    .brand h1{
+      margin:0;
+      font-size: 40px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 760;
+    }
+
+    .tagline{
+      margin:0;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge{
+      font-size: 12px;
+      color: rgba(255,255,255,.75);
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.14);
+      padding: 8px 10px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
     .card{
-      border:1px solid var(--line); border-radius: 16px; padding: 16px;
-      background: rgba(255,255,255,.04);
+      background: linear-gradient(180deg, var(--cardA), var(--cardB));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 18px;
     }
-    .card h3{ margin: 0 0 10px; font-size: 15px; color: rgba(255,255,255,.85); font-weight: 650; }
-    .card p{ margin: 0; color: var(--muted); line-height: 1.55; font-size: 14px; }
-    video{
-      width: 100%;
+
+    .card h2{
+      margin:0 0 10px;
+      font-size: 22px;
+      letter-spacing:-0.01em;
+    }
+    .card p{
+      margin:0;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.55;
+      max-width: 100%;
+    }
+
+    /* FinalWhy: paragraphs separated by a blank line */
+    .finalwhyText p{ margin: 0; }
+    .finalwhyText p + p{ margin-top: 12px; }
+
+    .see{ color: var(--blue); font-weight: 750; }
+    .feel{ color: var(--red); font-weight: 750; }
+
+    .videoWrap{
+      margin-top: 14px;
       border-radius: 16px;
-      background:#000;
-      border:1px solid var(--line);
-      box-shadow: 0 10px 40px rgba(0,0,0,.55);
-      outline: none;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
     }
-    .links{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 14px; }
-    .btn{
-      display:inline-flex; align-items:center; gap:10px;
-      padding: 10px 12px; border-radius: 12px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      color: var(--text); text-decoration:none; font-size: 14px;
+    video{
+      width:100%;
+      display:block;
+      height:auto;
     }
-    .btn:hover{ border-color: rgba(138,209,255,.35); }
-    .dot{ width:8px; height:8px; border-radius:999px; background: var(--accent); display:inline-block; }
-    footer{ margin-top: 28px; color: var(--muted); font-size: 13px; }
-    .small{ color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+    .cards2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .linkCard{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      text-decoration:none;
+      color: var(--text);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      min-height: 120px;
+    }
+    .linkCard:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.20);
+      background: rgba(255,255,255,.06);
+    }
+    .linkCard h3{
+      margin:0;
+      font-size: 16px;
+      letter-spacing:-0.01em;
+    }
+    .linkCard p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+    .arrow{
+      margin-top:auto;
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: rgba(255,255,255,.55);
+      font-size: 12.5px;
+      text-align:center;
+    }
+
+    /* Mini card (Chapter 2 link) */
+    .miniCard{
+      margin-top: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color: rgba(255,255,255,.88);
+      text-decoration: none;
+      font-size: 13.5px;
+      line-height: 1.2;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .miniCard:hover{
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+    }
+    .miniCard .tag{
+      color: rgba(255,255,255,.60);
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+    .miniCard .arrow{
+      margin-left: 16px;
+      color: rgba(255,255,255,.70);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 780px){
+      .brand h1{ font-size: 34px; }
+      .tagline{ white-space: normal; overflow: visible; text-overflow: clip; }
+      .cards2{ grid-template-columns: 1fr; }
+      .miniCard{ width: 100%; justify-content: space-between; }
+      .miniCard .arrow{ margin-left: 12px; }
+    }
   </style>
 </head>
 
@@ -75,53 +228,94 @@
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <b>finalwhy</b>
-        <span>Formal proof animations · Metamath and finalwhy</span>
+        <h1>Finalwhy</h1>
+        <p class="tagline">A child asks why, why, why. We don’t claim final answers—we search for the best ones.</p>
       </div>
-      <div class="pill">demo: A2I · ax-mp binding</div>
+      <div class="badge">Early stage</div>
     </div>
-
-    <h1>Proofs you can <span style="color:var(--accent)">see</span>.</h1>
-    <p class="lead">
-      A small experiment: take a formal Metamath proof and animate the meaning—step by step—so a human brain can follow it without losing rigor.
-    </p>
-
-    <video id="demo" controls playsinline preload="metadata">
-      <source src="assets/TheoremScene.mp4" type="video/mp4" />
-      Your browser doesn’t support MP4 video.
-    </video>
-    <div class="small">Tip: the final frame stays visible after playback ends.</div>
 
     <div class="grid">
-      <div class="card">
-        <h3><span class="dot"></span> What you’re watching</h3>
+      <section class="card">
+        <h2>Proofs you can <span class="see">see</span> and <span class="feel">feel</span></h2>
         <p>
-          A2I is an implication theorem. The animation shows ax-mp “binding” concrete lines of the proof into the schema
-          (φ, ψ, (φ→ψ), ⇒ψ), then collapsing the scaffolding until only the conclusion remains.
+          This video is the first step toward a fully animated proof of 2 + 2 = 4.
+          Chapter 2 of the novel <em>Why 2+2=4?</em> outlines the narrative background of such a proof.
         </p>
+
+        <!-- Mini card link (inside the Proofs card) -->
+        <a class="miniCard" href="chapter2.html">
+          <div>
+            <div class="tag">Read next</div>
+            <div><strong>Chapter 2</strong> — Why 2+2=4</div>
+          </div>
+          <div class="arrow">Open →</div>
+        </a>
+      </section>
+
+      <div class="videoWrap" aria-label="A2I animation demo">
+        <video controls preload="metadata">
+          <source src="assets/TheoremScene.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
-      <div class="card">
-        <h3><span class="dot"></span> Why it matters</h3>
-        <p>
-          This is the first brick toward a book (and tool) where proofs aren’t just correct—they’re legible.
-        </p>
-        <div class="links">
-          <a class="btn" href="#" onclick="alert('Coming soon.'); return false;">Roadmap</a>
-          <a class="btn" href="#" onclick="alert('Coming soon.'); return false;">Contact</a>
+
+      <section class="card">
+        <h2>Why finalwhy</h2>
+
+        <div class="finalwhyText">
+          <p>
+            Richard Feynman opens <em>The Feynman Lectures on Physics</em> with a thought experiment:
+            imagine a catastrophe that wipes out all scientific knowledge, and you are allowed to pass on
+            <strong>one sentence</strong> to posterity—one statement with the most power, in the fewest words.
+            His answer is the atomic hypothesis: <strong>everything is made of atoms</strong>—tiny particles in constant motion,
+            attracting and repelling depending on distance.
+          </p>
+
+          <p>
+            It’s a beautiful compression. But we’re not convinced it’s the best seed for rebuilding a civilization.
+          </p>
+
+          <p>
+            A single, ultra-dense statement can fail in two opposite ways. It can be <strong>ignored</strong>—too abstract, too small,
+            too disconnected from daily survival to feel actionable. Or it can be <strong>idolized</strong>—turned into a slogan,
+            a creed, a sacred phrase repeated without method. In that case, it becomes a religion about science, not science.
+          </p>
+
+          <p>
+            Our bet is different: if civilization ever needs to restart, what matters most is not a fact,
+            but a <em>way of seeing</em> that can actually be learned by intelligent people who are not mathematically trained.
+          </p>
+
+          <p>
+            The only realistic bridge is <strong>narrative</strong>: stories that carry intuition, method, and meaning—step by step—
+            until the reader can reconstruct the ideas for themselves.
+          </p>
+
+          <p>
+            So this project goes deeper—not by demanding years of formal training, but by building a narrative route into the foundations. 
+            We walk from intuition to rigor: what numbers are, what proof means, and how “2 + 2 = 4” can be rebuilt from first principles. 
+            If we succeed, the reader doesn’t just inherit a sentence—they inherit the machinery that lets knowledge grow again.
+          </p>
         </div>
-      </div>
+
+        <div style="height:12px"></div>
+
+        <div class="cards2">
+          <a class="linkCard" href="https://us.metamath.org/mpeuni/2p2e4.html" target="_blank" rel="noopener">
+            <h3>Formal proof of 2 + 2 = 4</h3>
+            <p>The canonical formal proof of 2 + 2 = 4, using ZFC axioms.</p>
+            <div class="arrow">Open →</div>
+          </a>
+
+          <a class="linkCard" href="https://us.metamath.org/mpeuni/mmset.html#axioms" target="_blank" rel="noopener">
+            <h3>ZFC axioms</h3>
+            <p>The foundational axioms from which the rest of mathematics can be constructed.</p>
+            <div class="arrow">Open →</div>
+          </a>
+        </div>
+      </section>
+
     </div>
-
-    <footer>
-      © <span id="y"></span> finalwhy
-    </footer>
   </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-    // Freeze on last frame (some players behave better with this)
-    const v = document.getElementById("demo");
-    v.addEventListener("ended", () => v.pause());
-  </script>
 </body>
 </html>
